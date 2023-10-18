@@ -71,6 +71,8 @@ void Dijkstra(int s)
                 {
                     if(edge.dst==i)
                     {
+                        if(dist[j]==-1)
+                            break;
                         if(dist[j]+edge.val<dist[i])
                         {
                             dist[i] = dist[j]+edge.val;
@@ -82,11 +84,11 @@ void Dijkstra(int s)
     }
 }
 
-void parse()
+unsigned int parse()
 {
     ifstream infile("data");
-    unsigned int src,val,dst,count;
-    infile >> count;
+    unsigned int src,val,dst,count,s;
+    infile >> count >> s;
     nodes.resize(count);
     dist.resize(count);
     vis.resize(count);
@@ -98,6 +100,7 @@ void parse()
         i = -1;
     for(auto& i : vis)
         i = false;
+    return s;
 }
 
 void output()
@@ -106,12 +109,13 @@ void output()
     {
         cout << e << " ";
     }
+    cout << endl;
 }
 
 int main()
 {
-    parse();
-    Dijkstra(0);
+    unsigned int s = parse();
+    Dijkstra(s);
     output();
     return 0;
 }
